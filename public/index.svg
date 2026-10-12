@@ -1,0 +1,306 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <foreignObject width="100%" height="100%">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+      <head>
+        <script>/*<![CDATA[*/(function(){
+  var XHTML_NS="http://www.w3.org/1999/xhtml";
+  var root=document.querySelector("foreignObject").firstElementChild;
+  var origCE=document.createElement.bind(document);
+  var origCENS=document.createElementNS.bind(document);
+  Object.defineProperty(document,"head",{get:function(){return root.querySelector("head")},configurable:true});
+  Object.defineProperty(document,"body",{get:function(){return root.querySelector("body")},configurable:true});
+  Object.defineProperty(document,"documentElement",{get:function(){return root},configurable:true});
+  document.createElement=function(t,o){return typeof t==="string"?origCENS(XHTML_NS,t,o):origCE(t,o)};
+  document.createElementNS=function(ns,n,o){return (ns==null||ns===XHTML_NS)?origCENS(XHTML_NS,n,o):origCENS(ns,n,o)};
+  Object.defineProperty(document,"getElementById",{value:function(id){return root.querySelector('[id="'+String(id).replace(/["\\]/g,'\\$&')+'"]')},configurable:true,writable:true});
+  document.getElementsByTagName=function(t){return root.getElementsByTagNameNS(XHTML_NS,t)};
+  document.getElementsByTagNameNS=function(ns,t){return root.getElementsByTagNameNS(ns,t)};
+  document.getElementsByClassName=function(c){return root.getElementsByClassName(c)};
+  var origQS=document.querySelector.bind(document);
+  var origQSA=document.querySelectorAll.bind(document);
+  document.querySelector=function(s){try{return root.querySelector(s)||origQS(s)}catch(e){return origQS(s)}};
+  document.querySelectorAll=function(s){try{var a=root.querySelectorAll(s);return a.length?a:origQSA(s)}catch(e){return origQSA(s)}};
+})();/*]]>*/</script>
+        <style><![CDATA[html,body{margin:0;width:100%;height:100%;overflow:hidden}foreignObject{overflow:visible}]]></style>
+
+    <meta charset="UTF-8" />
+    <script>
+/*<![CDATA[*/
+
+      (function(){var w=window,s={ps:History.prototype.pushState,rs:History.prototype.replaceState};w.__hohogamesHs=s;var h=history;try{Object.defineProperty(h,"pushState",{value:s.ps.bind(h),configurable:!0,writable:!0}),Object.defineProperty(h,"replaceState",{value:s.rs.bind(h),configurable:!0,writable:!0})}catch(e){}})();
+    
+/*]]>*/
+</script>
+    <script>
+/*<![CDATA[*/
+
+      // postbuild rewrites this assignment to the per-build nonce'd worker
+      // filename (lead "/" for the normal build, relative for the SVG build).
+      window.__SW_FILE__ = "/4mkcjl.js?v=hoho-20261012-9";
+      window.__HOHOGAMES_API_ORIGIN__ = location.origin;
+      window.__swRegistration = navigator.serviceWorker
+        ? (function () {
+            var FILE = new URL(window.__SW_FILE__, location.href).pathname.split("/").pop();
+            var userInteracted = false;
+            var noteInteraction = function () {
+              userInteracted = true;
+            };
+            window.addEventListener("pointerdown", noteInteraction, { capture: true, once: true });
+            window.addEventListener("keydown", noteInteraction, { capture: true, once: true });
+            window.addEventListener("click", noteInteraction, { capture: true, once: true });
+            var base = function (u) {
+              try {
+                return new URL(u, location.href).pathname.split("/").pop();
+              } catch (e) {
+                return String(u);
+              }
+            };
+            // Every deploy renames the worker script, so a registration left
+            // over from a previous build can never update itself (its script
+            // URL now 404s) and would keep controlling the page forever — on a
+            // CDN nothing tells it to die. Drop any registration whose worker
+            // isn't THIS build's file before registering ours. Not the one at
+            // our own scope: the register() below already swaps its worker,
+            // and unregistering it as well deletes that new worker as soon as
+            // the tab closes, so the next visit starts over without one.
+            var scope = new URL(".", new URL(window.__SW_FILE__, location.href)).href;
+            navigator.serviceWorker
+              .getRegistrations()
+              .then(function (regs) {
+                regs.forEach(function (r) {
+                  var w = r.active || r.waiting || r.installing;
+                  if (r.scope !== scope && w && base(w.scriptURL) !== FILE) r.unregister();
+                });
+              })
+              .catch(function () {});
+            return navigator.serviceWorker
+              // updateViaCache "all": the worker's filename is a per-build
+              // nonce, so its bytes can never change under one URL. Without
+              // this the browser re-fetches it on every navigation, which on
+              // a bucket is a billed GET per page view for nothing.
+              .register(window.__SW_FILE__, { updateViaCache: "all" })
+              .then(function (reg) {
+                // If this document loaded WITHOUT the current worker in
+                // control, the proxy sits on a 45s control-timeout before
+                // falling back. That happens on a hard reload, a first visit,
+                // or when a stale worker from a previous deploy still controls
+                // the page while ours installs. Grab control fast: give claim
+                // a short grace window, and if we're still uncontrolled — or
+                // controlled by the WRONG (stale) worker — reload ONCE
+                // (sessionStorage-guarded so we can never loop).
+                function currentControls() {
+                  var c = navigator.serviceWorker.controller;
+                  return !!c && base(c.scriptURL) === FILE;
+                }
+                if (currentControls()) {
+                  sessionStorage.removeItem("__sw_reload");
+                  return reg;
+                }
+                if (sessionStorage.getItem("__sw_reload")) return reg;
+                navigator.serviceWorker.ready.then(function () {
+                  if (currentControls()) return;
+                  var settled = false;
+                  var onCtrl = function () {
+                    if (!currentControls()) return;
+                    settled = true;
+                    navigator.serviceWorker.removeEventListener(
+                      "controllerchange",
+                      onCtrl
+                    );
+                  };
+                  navigator.serviceWorker.addEventListener(
+                    "controllerchange",
+                    onCtrl
+                  );
+                  setTimeout(function () {
+                    navigator.serviceWorker.removeEventListener(
+                      "controllerchange",
+                      onCtrl
+                    );
+                    if (!settled && !currentControls()) {
+                      sessionStorage.setItem("__sw_reload", "1");
+                      if (!userInteracted) location.reload();
+                    }
+                  }, 1200);
+                });
+                return reg;
+              })
+              .catch(function (err) {
+                console.error("[sw] registration failed:", err);
+                return null;
+              });
+          })()
+        : Promise.resolve(null);
+    
+/*]]>*/
+</script>
+
+    <link rel="icon" type="image/svg+xml" href="/public/hohogames.svg?v=hoho-20261012-9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HOHOGAMES</title>
+    <script src="/public/gmteb/xaw0tb.js?v=hoho-20261012-9"></script>
+    <script src="/public/kqxhh/virti7.js?v=hoho-20261012-9"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-N7TLL7J3HN"></script>
+    <script>
+/*<![CDATA[*/
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-N7TLL7J3HN");
+    
+/*]]>*/
+</script>
+    <link rel="stylesheet" href="/public/assets/index-yqXGi6ZC-08bfbe96.css?v=hoho-20261012-9" />
+  
+      </head>
+      <body>
+
+    <div id="_xi9j4u0"></div>
+  
+        <script>
+          /*<![CDATA[*/
+          (function () {
+            var attachShadow = Element.prototype.attachShadow;
+            Element.prototype.attachShadow = function (options) {
+              return attachShadow.call(this, Object.assign({}, options, { mode: "open" }));
+            };
+          })();
+          /*]]>*/
+        </script>
+        <script src="/public/assets/bundle-zvx8twxc.js?v=hoho-20261012-9"></script>
+        <script>
+          /*<![CDATA[*/
+          (function () {
+            if (location.pathname === "/embed") return;
+            var mount = document.getElementById("_xi9j4u0");
+            var scaleKey = "hoho-interface-scale";
+            var applyScale = function (value) {
+              var scale = Math.max(70, Math.min(140, Number(value) || 100));
+              document.documentElement.style.zoom = String(scale / 100);
+              try { localStorage.setItem(scaleKey, String(scale)); } catch (e) {}
+              return scale;
+            };
+            var install = function () {
+              var shadow = mount && mount.shadowRoot;
+              if (!shadow) {
+                requestAnimationFrame(install);
+                return;
+              }
+              var clean = function () {
+                shadow.querySelectorAll('a[href*="discord.gg"]').forEach(function (link) { link.remove(); });
+                var dock = shadow.querySelector("div._68jxnii.shrink-0.flex.flex-col.w-10");
+                if (dock) {
+                  dock.querySelectorAll("button[aria-label],a[aria-label],[role=button][aria-label]").forEach(function (control) {
+                    var label = (control.getAttribute("aria-label") || "").replace(/\s+/g, " ").trim();
+                    if (["AI", "AI Assistant", "Chat", "Chatrooms", "Members", "Changelog"].includes(label)) {
+                      var item = control.closest(".group.relative.w-full") || control;
+                      item.remove();
+                    }
+                  });
+                }
+                if (dock && dock.dataset.hohoDock !== "true") {
+                  dock.dataset.hohoDock = "true";
+                  dock.classList.add("hoho-bottom-dock");
+                  dock.style.cssText = "position:fixed;top:auto;right:auto;bottom:max(12px,env(safe-area-inset-bottom));left:50%;z-index:2147483646;display:flex;flex-direction:row;align-items:center;gap:8px;width:max-content;max-width:calc(100vw - 16px);height:auto;overflow-x:auto;overflow-y:hidden;padding:7px;border:1px solid rgba(255,255,255,.18);border-radius:15px;background:rgba(10,10,10,.9);box-shadow:0 8px 28px rgba(0,0,0,.48);transform:translateX(-50%);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);pointer-events:auto;scrollbar-width:none";
+                  Array.prototype.forEach.call(dock.children, function (group, index) {
+                    if (index === 1) {
+                      group.style.cssText = "width:1px;height:30px;flex:0 0 1px;margin:0 2px;border:0;border-left:1px solid rgba(255,255,255,.18)";
+                      return;
+                    }
+                    group.style.cssText = "display:flex;flex-direction:row;align-items:center;gap:5px;flex:0 0 auto;width:max-content";
+                    Array.prototype.forEach.call(group.children, function (item) {
+                      item.style.width = "auto";
+                      item.style.flex = "0 0 auto";
+                      var button = item.querySelector("button");
+                      if (!button) return;
+                      button.style.width = "42px";
+                      button.style.height = "42px";
+                      button.style.minWidth = "42px";
+                      button.style.minHeight = "42px";
+                      button.style.flex = "0 0 42px";
+                    });
+                  });
+                  var dockStyle = document.createElement("style");
+                  dockStyle.textContent = ".hoho-bottom-dock{scrollbar-width:none}.hoho-bottom-dock::-webkit-scrollbar{display:none}.hoho-bottom-dock button{transition:transform 140ms ease,background-color 140ms ease,color 140ms ease}.hoho-bottom-dock button:hover{transform:translateY(-2px);background-color:rgba(255,255,255,.12)}@media(prefers-reduced-motion:reduce){.hoho-bottom-dock button{transition:none}}";
+                  shadow.appendChild(dockStyle);
+                }
+                shadow.querySelectorAll("h3").forEach(function (heading) {
+                  var label = (heading.textContent || "").trim().toLowerCase();
+                  if (label === "custom theme") {
+                    heading.parentElement && heading.parentElement.remove();
+                    return;
+                  }
+                  if (label !== "theme") return;
+                  var section = heading.parentElement;
+                  if (!section || section.dataset.hohoScale) return;
+                  var panel = document.createElement("div");
+                  panel.dataset.hohoScale = "true";
+                  panel.style.cssText = "display:flex;flex-direction:column;gap:12px;padding:14px;border:1px solid #ffffff24;border-radius:10px;background:#080808;color:#fff";
+                  var title = document.createElement("h3");
+                  title.textContent = "Interface scale";
+                  title.style.cssText = "margin:0;font-size:14px;font-weight:600;color:#fff";
+                  var row = document.createElement("div");
+                  row.style.cssText = "display:flex;align-items:center;gap:12px";
+                  var slider = document.createElement("input");
+                  slider.type = "range";
+                  slider.min = "70";
+                  slider.max = "140";
+                  slider.step = "5";
+                  slider.setAttribute("aria-label", "Interface scale");
+                  slider.style.cssText = "flex:1;min-width:0;min-height:44px;accent-color:#fff";
+                  var value = document.createElement("output");
+                  value.style.cssText = "min-width:42px;text-align:right;font-size:13px;color:#ddd";
+                  var reset = document.createElement("button");
+                  reset.type = "button";
+                  reset.textContent = "Reset";
+                  reset.style.cssText = "min-height:44px;padding:0 14px;border:1px solid #ffffff40;border-radius:7px;background:#111;color:#fff";
+                  try { slider.value = localStorage.getItem(scaleKey) || "100"; } catch (e) { slider.value = "100"; }
+                  var update = function () {
+                    var next = applyScale(slider.value);
+                    slider.value = String(next);
+                    value.textContent = next + "%";
+                  };
+                  slider.addEventListener("input", update);
+                  reset.addEventListener("click", function () { slider.value = "100"; update(); });
+                  row.append(slider, value, reset);
+                  panel.append(title, row);
+                  section.replaceWith(panel);
+                  update();
+                });
+              };
+              var savedScale = 100;
+              try { savedScale = Number(localStorage.getItem(scaleKey)) || 100; } catch (e) {}
+              applyScale(savedScale);
+              clean();
+              new MutationObserver(clean).observe(shadow, { childList: true, subtree: true });
+            };
+            install();
+          })();
+          /*]]>*/
+        </script>
+        <script>
+          /*<![CDATA[*/
+          (function () {
+            if (location.pathname !== "/embed") return;
+            var mount = document.getElementById("_xi9j4u0");
+            var addProxyStyle = function () {
+              var shadow = mount && mount.shadowRoot;
+              if (!shadow) {
+                requestAnimationFrame(addProxyStyle);
+                return;
+              }
+              var style = document.createElement("style");
+              style.textContent = "iframe { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 2147483647 !important; border: 0 !important; background: #000 !important; }";
+              shadow.appendChild(style);
+            };
+            addProxyStyle();
+          })();
+          /*]]>*/
+        </script>
+      </body>
+    </html>
+  </foreignObject>
+</svg>

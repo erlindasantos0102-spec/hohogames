@@ -1,0 +1,8 @@
+{
+  "name": "hohogames-site-mirror",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs"
+  }
+}
