@@ -1,10 +1,11 @@
 # jsDelivr deployment
 
-The repository's `public/` directory is the static asset root:
+The repository root contains the `index.svg` entry point. Static assets live in
+`public/`:
 
 ```text
+index.svg
 public/
-  index.svg
   hohogames.svg
   gmteb/
   kqxhh/
@@ -14,20 +15,20 @@ public/
     SFCompactText-*.woff2
 ```
 
-The `public/index.svg` entry loads its JavaScript, stylesheet, and favicon
-using paths relative to itself. That is required because jsDelivr serves the
-repository below `/gh/<owner>/<repo>/public/`, not at the domain root.
-Its static asset base is:
+The root `index.svg` loads its JavaScript, stylesheet, and favicon from
+relative `./public/...` URLs, matching the root layout used by the reference
+repository. The asset base is:
 
 ```text
 https://cdn.jsdelivr.net/gh/erlindasantos0102-spec/hohogames@main/public/
 ```
 
-Select the `erlindasantos0102-spec/hohogames` repository, the `main` branch,
-and the `public/` directory when locating these files in jsDelivr.
+Use the repository root URL:
 
-The full application can render from jsDelivr, but jsDelivr is static hosting:
-it does not provide the Node server's Music API proxy. Keep the Node server
-available for API requests and configure the app to use its public origin
-when opening the page directly from jsDelivr. Commit and push changes to
-`public/` before expecting jsDelivr to serve them.
+```text
+https://cdn.jsdelivr.net/gh/erlindasantos0102-spec/hohogames/index.svg
+```
+
+jsDelivr is static hosting and does not provide the Node server's Music API
+proxy. The application must use a reachable backend origin for Music requests
+when opened directly from jsDelivr.

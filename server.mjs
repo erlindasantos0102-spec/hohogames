@@ -9,7 +9,6 @@ import { createGzip } from 'node:zlib';
 const root = resolve(fileURLToPath(new URL('.', import.meta.url)));
 const apiOrigin = 'https://kristenblackburnvolleyballcamps.com';
 const gamesCdnOrigin = 'https://cdn.jsdelivr.net/gh/lostgemsy/67';
-const publicDir = resolve(root, 'public');
 const port = Number(process.env.PORT || 4173);
 const mimeTypes = {
   '.css': 'text/css; charset=utf-8',
@@ -97,7 +96,7 @@ function serveHohogamesDocument(response) {
     'cache-control': 'no-store',
     'content-type': mimeTypes['.svg'],
   });
-  createReadStream(resolve(publicDir, 'index.svg')).pipe(response);
+  createReadStream(resolve(root, 'index.svg')).pipe(response);
 }
 
 async function serveStatic(request, pathname, response) {
